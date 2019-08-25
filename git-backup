@@ -20,6 +20,11 @@
 # the generated branches' name
 #
 
+programName="git-backup"
+version="1.0.0"
+repository="https://github.com/sarpik/git-backup/issues"
+
+### TODO - simplify
 usage="\
 Usage:
 $ git-backup [OPTION]...
@@ -42,8 +47,11 @@ Options:
 
 Examples:
 	$ git-backup
-	$ git-backup -l -q
-	$ git-backup -r upstream
+Bugs:
+       If you find issues, please report them:
+       $repository
+
+$programName $version \
 "
 
 checkManualPage() {
