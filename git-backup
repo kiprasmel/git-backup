@@ -46,7 +46,7 @@ Options:
        -h     display this help and exit
 
 Examples:
-	$ git-backup
+      $ git-backup
       $ git-backup -lq
       $ git-backup -r upstream -c 128
 
@@ -198,13 +198,14 @@ git-backup() {
 		return 0
 	} || {
 		# handle errors if something failed
-		printf " -> Something failed!\n" && \
+		printf " -> Something failed!\n"
 
 		[ "$stashed" = "true" ] && {
 			printf " -> popping stash back (git stash pop)\n"
 			git stash pop | grep "Dropped.*stash.*\(.*\)" && \
 			stashed="false"
-		} && \
+		}
+
 		return 1
 	}
 
