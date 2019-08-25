@@ -47,7 +47,15 @@ Examples:
 	$ git-backup -r upstream
 "
 
-printUsage() {
+checkManualPage() {
+	man "$1" >/dev/null 2>&1
+}
+
+showUsageManual() {
+	checkManualPage "$programName" && man "$programName"
+}
+
+showUsageRaw() {
 	printf "$usage\n"
 }
 
@@ -71,17 +79,18 @@ git-backup() {
 				exec > /dev/null  # redirect stdout to /dev/null
 				shift # forward argv by one option
 				;;
-			s)
-				branchNameSize="${OPTARG}"
-				shift # forward argv by one option
+			m)
+				showUsageManual
+				exit
 				;;
 			h)
-				printUsage
+				showUsageRaw
 				exit
 				;;
 			*)
-				printUsage
-				exit
+				printf "unmatched option\n\n"
+				showUsageRaw
+				exit 1
 				;;
 		esac
 	done
