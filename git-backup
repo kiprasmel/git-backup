@@ -155,7 +155,8 @@ git-backup() {
 	# BEGIN action!
 
 	# git stash -u
-	git stash --include-untracked >/dev/null 2>&1 && \
+	### TODO - take a look at "git stash create"
+	git stash push --include-untracked >/dev/null 2>&1 && \
 
 	# mark that we stashed so that if something fails, we STILL pop the stash back
 	stashed="true" && \
