@@ -22,24 +22,23 @@
 
 usage="\
 Usage:
-$ git-backup [OPTION [ARGUMENT]]...
+$ git-backup [OPTION]...
 
 Options:
-    -r [remote name]
-          change to which remote to push the backup branch to
-          [default=origin]
+       -r REMOTE
+              change to which remote to push the backup branch to; default=origin
 
-    -l    local mode. Will NOT push the generated branch to remote
-          [default=false]
+       -c CHAR_COUNT
+              max  number  of characters for the branch name.  Your remote / git might complain that the branch name is too long. You can limit it's length
+              here; default=255
 
-    -q    quite mode. Will only print the backup branches' name
-          [default=false]
+       -l     local mode. Do NOT push the generated branch to remote; default=false
 
-    -s [branch name size]
-          size of branch name in chars
-		  [default=255]
+       -q     quiet mode. Print only the backup branches' name; NOTE that you might get prompted for the passphrase/password to access the remote! default=false
 
-    -h    help
+       -m     display the manual page (git-backup(1)) and exit
+
+       -h     display this help and exit
 
 Examples:
 	$ git-backup
@@ -66,18 +65,22 @@ git-backup() {
 	exec 6>&1 # saves stdout (see -q)
 
 	# -q => quiet mode (return only generated branch name)
-	while getopts ":r:lqs:h" opt; do
+	while getopts ":r:c:qlmh" opt; do
 		case "${opt}" in
 			r)
 				remoteRepoName="${OPTARG}"
 				;;
-			l)
-				shouldPushBranchToRemote="false"
-				shift # forward argv by one option
+			c)
+				branchNameCharCount="${OPTARG}"
+				# shift # forward argv by one option
 				;;
 			q)
 				exec > /dev/null  # redirect stdout to /dev/null
-				shift # forward argv by one option
+				# shift # forward argv by one option
+				;;
+			l)
+				shouldPushBranchToRemote="false"
+				# shift # forward argv by one option
 				;;
 			m)
 				showUsageManual
@@ -112,8 +115,8 @@ git-backup() {
 	# -l
 	[ -z "$shouldPushBranchToRemote" ] && shouldPushBranchToRemote="true"
 
-	# -s
-	[ -z "$branchNameSize" ] && branchNameSize="255"
+	# -c
+	[ -z "$branchNameCharCount" ] && branchNameCharCount="255"
 
 	if [ "$shouldPushBranchToRemote" = "true" ]; then
 		# make sure the remote is present
@@ -152,11 +155,11 @@ git-backup() {
 	# generate backup branch name
 	backupBranchName="$currentUsername-backup--$subjectLine" && \
 
-	# limit branch name to 250 chars
+	# limit branch name to N chars
 	# (.lock adds the last 5 to filename when git creates it)
 	### TODO - still not done - git still fails
 	### TODO - figure out max length
-	backupBranchName="${backupBranchName:0:$branchNameSize}" && \
+	backupBranchName="${backupBranchName:0:$branchNameCharCount}" && \
 
 	# create the backup branch
 	git branch "$backupBranchName" && \
