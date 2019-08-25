@@ -47,6 +47,9 @@ Options:
 
 Examples:
 	$ git-backup
+      $ git-backup -lq
+      $ git-backup -r upstream -c 128
+
 Bugs:
        If you find issues, please report them:
        $repository
@@ -151,9 +154,10 @@ git-backup() {
 
 	# BEGIN action!
 
+	# git stash -u
 	git stash --include-untracked >/dev/null 2>&1 && \
 
-	# mark that we stashed so that if something fails, we pop the stash back
+	# mark that we stashed so that if something fails, we STILL pop the stash back
 	stashed="true" && \
 
 	# --format: '%f' => "sanitized subject line, suitable for a filename" (GIT-LOG(1))
