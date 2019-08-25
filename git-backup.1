@@ -1,0 +1,105 @@
+.TH GIT-BACKUP 1 2019-08-20 "git-backup 1.0.0" "Git Manual"
+
+.SH NAME
+
+git-backup \- create a backup commit from uncommited changes
+
+
+.SH SYNOPSIS
+
+.B git\-backup
+[\fIOPTION\fR]...
+
+
+.SH DESCRIPTION
+
+.B git\-backup
+.I creates
+a backup commit
+.I from
+uncommited changes
+.I inside
+a separate branch
+&
+.I pushes it
+to the remote.
+
+
+.SH OPTIONS
+
+.TP
+.BR \-r " " \fIREMOTE\fR
+change to which remote to push the backup branch to;
+default=origin
+
+.TP
+.BR \-c " " \fICHAR_COUNT\fR
+max number of characters for the branch name.
+Your remote / git might complain that the branch name
+is too long. You can limit it's length here;
+default=255
+
+.TP
+.BR \-q
+quiet mode. Print only the backup branches' name;
+NOTE that you might get prompted for the passphrase/password to access the remote!
+default=false
+
+.TP
+.BR \-l
+local mode. Do NOT push the generated branch to remote;
+default=false
+
+.TP
+.BR \-m
+display the manual page (\fBgit-backup\fR(1)) and exit
+
+.TP
+.BR \-h
+display the raw \fIhelp\fR and exit
+
+.SH EXAMPLES
+
+.PP
+.nf
+.RS
+git\-backup
+git\-backup \fB-lq\fR
+git\-backup \fB-r\fI upstream\fB -c\fI 128\fR
+.RE
+.fi
+.PP
+
+
+.SH NOTES
+
+.P
+Since `git stash` is used, the files that you've added to the `index` will be unstaged.
+This is NOT dangerious - you do NOT lose your files, ever.
+You should only care if you've spent a lot of time adding files to the `index` and haven't commited yet.
+
+
+.SH BUGS
+
+If you find issues, please report them:
+
+.UR https://github.com/sarpik/git-backup/issues
+https://github.com/sarpik/git-backup/issues
+.UE
+
+
+.SH AUTHOR
+
+Kipras Melnikovas \fIhttps://kipras.org/\fR :: sarpik \fIhttps://github.com/sarpik/\fR :: kipras@kipras.org
+
+
+.SH SEE ALSO
+
+.BR git (1),
+.BR git\-remote (1),
+.BR git\-stash (1),
+.BR git\-branch (1),
+.BR git\-push (1)
+
+.I https://github.com/sarpik/git-backup/
+
