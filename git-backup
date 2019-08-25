@@ -175,7 +175,7 @@ git-backup() {
 	backupBranchName="${backupBranchName:0:$branchNameCharCount}" && \
 
 	# create the backup branch
-	git branch "$backupBranchName" && \
+	git branch "$backupBranchName" "stash@{0}" && \
 
 	# get your changes back
 	git stash pop --quiet && \
