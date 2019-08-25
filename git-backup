@@ -174,8 +174,8 @@ git-backup() {
 	### TODO - figure out max length
 	backupBranchName="${backupBranchName:0:$branchNameCharCount}" && \
 
-	# create the backup branch
-	git branch "$backupBranchName" && \
+	# create the backup branch from the latest stash
+	git branch "$backupBranchName" "stash@{0}" && \
 
 	# get your changes back
 	git stash pop --quiet && \
