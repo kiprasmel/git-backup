@@ -166,8 +166,22 @@ git-backup() {
 	# contains '<authorDate (UNIX timestamp)>--<stashCommitId>--WIP-on-<branchName>-<stashCommitHash>-<parentCommitTitle>'
 	subjectLine="$(git stash list --format='%at--%h--%f' | head -n 1)" && \
 
+	#
 	# generate backup branch name
-	backupBranchName="$currentUsername-backup--$subjectLine" && \
+	#
+	# we use "zzz__git-backup" here because github ignores
+	# the last chars from ascii, such as "_"
+	# (probably matching with the regex "[a-zA-Z-]"),
+	#
+	# and we do NOT want the backup branches to take over
+	# the actually used & active branches,
+	#
+	# hence we want them to be at the bottom of the list,
+	# and the way to achieve it was to prefix it with the last ascii char
+	# that github didn't ignore,
+	# thus taking a couple of "z"s
+	#
+	backupBranchName="zzz__git-backup/$currentUsername/$subjectLine" && \
 
 	# limit branch name to N chars
 	# (.lock adds the last 5 to filename when git creates it)
