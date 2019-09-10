@@ -22,7 +22,8 @@
 
 programName="git-backup"
 version="1.0.0"
-repository="https://github.com/sarpik/git-backup/issues"
+repository="https://github.com/sarpik/git-backup"
+issues="$repository/issues"
 
 ### TODO - simplify
 usage="\
@@ -52,7 +53,7 @@ Examples:
 
 Bugs:
        If you find issues, please report them:
-       $repository
+       $issues
 
 $programName $version \
 "
