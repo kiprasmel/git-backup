@@ -24,6 +24,8 @@ a separate branch
 .I pushes it
 to the remote.
 
+To apply the created backup (stash), just use `git stash apply <branch-name>`
+
 
 .SH OPTIONS
 
@@ -61,11 +63,22 @@ display the raw \fIhelp\fR and exit
 .SH EXAMPLES
 
 .PP
+Creating a backup:
 .nf
 .RS
-git\-backup
-git\-backup \fB-lq\fR
-git\-backup \fB-r\fI upstream\fB -c\fI 128\fR
+$ git\-backup
+$ git\-backup \fB-lq\fR
+$ git\-backup \fB-r\fI upstream\fB -c\fI 128\fR
+.RE
+.fi
+.PP
+
+.PP
+Applying the backup:
+.nf
+.RS
+$ git stash apply <branch-name>
+$ git stash apply "zzz__git-backup/sarpik/1572101955--f843bc9--WIP-on-master-87231dd-Merge-branch-feature-better-branch-names"
 .RE
 .fi
 .PP
@@ -102,4 +115,3 @@ Kipras Melnikovas \fIhttps://kipras.org/\fR :: sarpik \fIhttps://github.com/sarp
 .BR git\-push (1)
 
 .I https://github.com/sarpik/git-backup/
-
