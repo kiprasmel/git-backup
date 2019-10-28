@@ -1,8 +1,8 @@
 # git-backup
 
-[Beta] In case of fire, use `git-backup` 🔥
+In case of fire, use `git-backup` 🔥
 
-> `git-backup` is literally like `git stash`, but **it makes stashes available** on the **remote** for later use
+> `git-backup` is literally like `git stash`, but **it makes stashes available** on the **remote** for later use!
 
 ## Installing
 
