@@ -38,7 +38,7 @@ and then use it by just running `git backup`
 
 ## Manual
 
-See **git-backup**(1) (`man git-backup`)
+See **git-backup**(1) (`man git-backup` or `git-backup -m`)
 
 ## License
 
