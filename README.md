@@ -4,6 +4,18 @@
 
 > `git-backup` is literally like `git stash`, but **it makes stashes available** on the **remote** for later use
 
+## Installing
+
+* From source
+
+```sh
+git clone https://github.com/sarpik/git-backup.git
+# or:  git clone git@github.com:sarpik/git-backup.git
+make install
+```
+
+> you can provide a custom `DESTDIR` variable to control the installation path's.
+
 ## Usage
 
 ```sh
@@ -21,10 +33,10 @@ git stash apply <branch-name>
 For ease of use, you could create a git alias for `git-backup`:
 
 ```sh
-git config --global alias.backup /path/to/git-backup
+git config --global alias.backup git-backup
 ```
 
-and then use it just by running `git backup`
+and then use it by just running `git backup`
 
 ## Manual
 
