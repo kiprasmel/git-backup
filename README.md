@@ -6,7 +6,7 @@ In case of fire, use `git-backup` 🔥
 
 ## Installing
 
-* From source
+* From source:
 
 ```sh
 git clone https://github.com/sarpik/git-backup.git
@@ -34,11 +34,11 @@ For ease of use, you could create a git alias for `git-backup`:
 git config --global alias.backup git-backup
 ```
 
-and then use it by just running `git backup`
+and then use it by just running `git backup`.
 
 ## Manual
 
-See **git-backup**(1) (`man git-backup` or `git-backup -m`)
+See **git-backup**(1) (`man git-backup` or `git-backup -m`).
 
 ## License
 
