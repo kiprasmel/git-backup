@@ -14,8 +14,6 @@ git clone https://github.com/sarpik/git-backup.git
 make install
 ```
 
-> you can provide a custom `DESTDIR` variable to control the installation path's.
-
 ## Usage
 
 ```sh
