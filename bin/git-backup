@@ -151,6 +151,19 @@ git-backup() {
 	# and sanitize the selected one (replace spaces with dashes and make letters lowercase)
 	currentUsername="$(printf "$(git config user.username || git config user.name)" | sed 's/\s/-/g' | awk '{ print tolower($0) }')" && \
 
+	#
+	# make sure we're NOT inside an untracked directory
+	#
+	# by 'cd ..'ing up until we reach the '.git/' folder
+	# see https://github.com/sarpik/git-backup/issues/10
+	#
+	# this does not affect the users directory
+	# since scripts run inside subshells
+	#
+	until [ -d ".git/" ]; do
+		cd ../
+	done
+
 	# END setup
 
 	# BEGIN action!
@@ -230,4 +243,3 @@ git-backup() {
 
 # call the function
 git-backup "$@" && exit 0 || exit 1
-
