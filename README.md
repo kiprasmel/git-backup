@@ -6,6 +6,12 @@ In case of fire, use `git-backup` 🔥
 
 ## Installing
 
+* [Arch Linux](https://aur.archlinux.org/packages/git-backup-git/):
+
+```sh
+yay -S git-backup-git
+```
+
 * From source:
 
 ```sh
