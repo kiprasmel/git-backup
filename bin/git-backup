@@ -154,15 +154,27 @@ git-backup() {
 	#
 	# make sure we're NOT inside an untracked directory
 	#
-	# by 'cd ..'ing up until we reach the '.git/' folder
-	# see https://github.com/sarpik/git-backup/issues/10
+	# by 'cd'ing into the root directory of the current git repository.
+	# https://github.com/sarpik/git-backup/issues/10
 	#
 	# this does not affect the users directory
 	# since scripts run inside subshells
 	#
-	until [ -d ".git/" ]; do
-		cd ../
-	done
+	# Note: In a submodule, this will display the root directory
+	# of the submodule and not the parent repository!
+	#
+	# https://stackoverflow.com/a/957978/9285308
+	#
+	# ❗👆 here I also found that you can have an alias for git like
+	# exec = "!exec "
+	# git config --global alias.exec "!exec "
+	#
+	# to run anything inside the root of the git repo,
+	# which is crazy awesome and useful
+	# (for example, git exec make)!
+	#
+	absolutePathToGitRootDirectory="$(git rev-parse --show-toplevel)"
+	cd "$absolutePathToGitRootDirectory"
 
 	# END setup
 
