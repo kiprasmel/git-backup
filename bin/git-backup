@@ -67,11 +67,11 @@ showUsageManual() {
 }
 
 showUsageRaw() {
-	printf "$usage\n"
+	printf "%s\n" "$usage"
 }
 
 # create function
-git-backup() {
+git_backup() {
 	# setup
 
 	exec 6>&1 # saves stdout (see -q)
@@ -133,13 +133,13 @@ git-backup() {
 	if [ "$shouldPushBranchToRemote" = "true" ]; then
 		# make sure the remote is present
 
-		git remote -v | grep "$remoteRepoName" >/dev/null 2>&1 && {
+		if git remote -v | grep -q "$remoteRepoName" >/dev/null 2>&1; then
 			shouldPushBranchToRemote="true"
-			printf " -> remote ($remoteRepoName) found!\n"
-		} || {
+			printf " -> remote (%s) found!\n" "$remoteRepoName"
+		else
 			shouldPushBranchToRemote="false"
-			printf " -> remote ($remoteRepoName) NOT found!\n"
-		}
+			printf " -> remote (%s) NOT found!\n" "$remoteRepoName"
+		fi
 	else
 		printf " -> remote ignored.\n"
 	fi
@@ -149,7 +149,7 @@ git-backup() {
 
 	# get current username (if it's set), or get the user.name
 	# and sanitize the selected one (replace spaces with dashes and make letters lowercase)
-	currentUsername="$(printf "$(git config user.username || git config user.name)" | sed 's/\s/-/g' | awk '{ print tolower($0) }')" && \
+	currentUsername="$(printf "%s" "$(git config user.username || git config user.name)" | sed 's/\s/-/g' | awk '{ print tolower($0) }')" && \
 
 	#
 	# make sure we're NOT inside an untracked directory
@@ -174,7 +174,11 @@ git-backup() {
 	# (for example, git exec make)!
 	#
 	absolutePathToGitRootDirectory="$(git rev-parse --show-toplevel)"
-	cd "$absolutePathToGitRootDirectory"
+	cd "$absolutePathToGitRootDirectory" || {
+		printf "  -> Failed to \`cd' into the root of git repository (%s)" "$absolutePathToGitRootDirectory"
+		printf "     Exiting"
+		return 1
+	}
 
 	# END setup
 
@@ -223,7 +227,7 @@ git-backup() {
 
 	# push to remote repo
 	if [ "$shouldPushBranchToRemote" = "true" ]; then
-		printf "==> Pushing to remote repo ($remoteRepoName)\n" && \
+		printf "==> Pushing to remote repo (%s)\n" "$remoteRepoName" && \
 		git push "$remoteRepoName" "$backupBranchName" >/dev/null 2>&1 || {
 			printf " -> Failed 'git push'.\n"
 			return 1
@@ -234,10 +238,9 @@ git-backup() {
 	printf " -> Backup branch (use -q to print only it): \n" && \
 
 	# restore stdout (does NOT print it though (good))
-	exec 1>&6 6>&- && {
-		printf "$backupBranchName\n"
-		return 0
-	} || {
+	exec 1>&6 6>&- && \
+	printf "%s" "$backupBranchName\n" &&
+	return 0 || {
 		# handle errors if something failed
 		printf " -> Something failed!\n"
 
@@ -254,4 +257,5 @@ git-backup() {
 };
 
 # call the function
-git-backup "$@" && exit 0 || exit 1
+git_backup "$@" && exit 0 || exit 1
+
