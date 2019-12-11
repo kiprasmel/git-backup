@@ -126,7 +126,7 @@ git_backup() {
 		# restore stdout EARLY to allow the printing of the error
 		exec 1>&6 6>&-
 
-		printf " -> warning: nothing to commit, working tree clean.\n"
+		printf " -> nothing to commit, working tree clean.\n"
 		return 1
 	}
 
