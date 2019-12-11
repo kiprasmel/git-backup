@@ -1,4 +1,4 @@
-.TH GIT-BACKUP 1 2019-08-20 "git-backup 0.1.2" "Git Manual"
+.TH GIT-BACKUP 1 "2019-12-11" "git-backup 0.2.0" "Git Manual"
 
 .SH NAME
 
@@ -24,7 +24,7 @@ a separate branch
 .I pushes it
 to the remote.
 
-To apply the created backup (stash), just use `git stash apply <branch-name>`
+To apply the created backup (stash), just use `git stash apply \fIbranch-name\fR`
 
 
 .SH OPTIONS
@@ -77,8 +77,8 @@ $ git\-backup \fB-r\fI upstream\fB -c\fI 128\fR
 Applying the backup:
 .nf
 .RS
-$ git stash apply <branch-name>
-$ git stash apply "zzz__git-backup/sarpik/1572101955--f843bc9--WIP-on-master-87231dd-Merge-branch-feature-better-branch-names"
+$ git stash apply \fIbranch\-name\fR
+$ git stash apply \fI"wip/sarpik/1572101955--f843bc9--WIP-on-master-87231dd-Merge-branch-feature-better-branch-names"\fR
 .RE
 .fi
 .PP
