@@ -198,7 +198,7 @@ git_backup() {
 	#
 	# generate backup branch name
 	#
-	# we use "zzz__git-backup" here because github ignores
+	# we use "wip" here because github ignores
 	# the last chars from ascii, such as "_"
 	# (probably matching with the regex "[a-zA-Z-]"),
 	#
@@ -206,11 +206,10 @@ git_backup() {
 	# the actually used & active branches,
 	#
 	# hence we want them to be at the bottom of the list,
-	# and the way to achieve it was to prefix it with the last ascii char
-	# that github didn't ignore,
-	# thus taking a couple of "z"s
+	# and 'w' is pretty close to the end of the alphabet
+	# while still making sense from the "wip".
 	#
-	backupBranchName="zzz__git-backup/$currentUsername/$subjectLine" && \
+	backupBranchName="wip/$currentUsername/$subjectLine" && \
 
 	# limit branch name to N chars
 	# (.lock adds the last 5 to filename when git creates it)
