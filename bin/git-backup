@@ -21,7 +21,7 @@
 #
 
 programName="git-backup"
-version="0.1.2"
+version="0.2.1"
 repository="https://github.com/sarpik/git-backup"
 issues="$repository/issues"
 
@@ -118,6 +118,15 @@ git_backup() {
 		exec 1>&6 6>&-
 
 		printf " -> error! Git repository NOT found!\n"
+		return 1
+	}
+
+	# check if the working directory is NOT clean before performing a backup
+	git status | grep "nothing to commit, working tree clean" >/dev/null 2>&1 && {
+		# restore stdout EARLY to allow the printing of the error
+		exec 1>&6 6>&-
+
+		printf " -> warning: nothing to commit, working tree clean.\n"
 		return 1
 	}
 
