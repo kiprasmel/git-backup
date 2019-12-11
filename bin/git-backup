@@ -121,6 +121,15 @@ git_backup() {
 		return 1
 	}
 
+	# check if the working directory is NOT clean before performing a backup
+	git status | grep "nothing to commit, working tree clean" >/dev/null 2>&1 && {
+		# restore stdout EARLY to allow the printing of the error
+		exec 1>&6 6>&-
+
+		printf " -> warning: nothing to commit, working tree clean.\n"
+		return 1
+	}
+
 	# -r
 	[ -z "$remoteRepoName" ] && remoteRepoName="origin"
 
