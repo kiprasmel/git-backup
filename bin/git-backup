@@ -239,7 +239,7 @@ git_backup() {
 
 	# restore stdout (does NOT print it though (good))
 	exec 1>&6 6>&- && \
-	printf "%s" "$backupBranchName\n" &&
+	printf "%s\n" "$backupBranchName" &&
 	return 0 || {
 		# handle errors if something failed
 		printf " -> Something failed!\n"
