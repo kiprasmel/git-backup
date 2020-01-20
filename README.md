@@ -37,7 +37,7 @@ git stash apply <branch-name>
 For ease of use, you could create a git alias for `git-backup`:
 
 ```sh
-git config --global alias.backup git-backup
+git config --global alias.backup "!git-backup"
 ```
 
 and then use it by just running `git backup`.
