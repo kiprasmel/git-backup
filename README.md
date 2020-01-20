@@ -40,6 +40,10 @@ For ease of use, you could create a git alias for `git-backup`:
 git config --global alias.backup "!git-backup"
 ```
 
+```sh
+git config --global alias.bp     "!git-backup" # extra quick backups 💦💦
+```
+
 and then use it by just running `git backup`.
 
 ## Manual
