@@ -17,6 +17,9 @@ yay -S git-backup-git
 ```sh
 git clone https://github.com/sarpik/git-backup.git
 # or:  git clone git@github.com:sarpik/git-backup.git
+
+cd git-backup
+
 make install
 ```
 
